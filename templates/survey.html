@@ -11,11 +11,11 @@
     {% for i in range(questions|length) %}
         <li>{{questions[i]}}</li>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name={{i}} id="inlineRadio1" value="Yes">
+            <input class="form-check-input" type="radio" name={{i+1}} id="inlineRadio1" value="Yes">
             <label class="form-check-label" for="Yes">Yes</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name={{i}} id="inlineRadio2" value="No">
+            <input class="form-check-input" type="radio" name={{i+1}} id="inlineRadio2" value="No">
             <label class="form-check-label" for="No">No</label>
         </div>
     {% endfor %}
