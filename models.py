@@ -42,12 +42,16 @@ class Qtable(db.Model):
     __tablename__ = "qtable"
     id = Column(Integer, primary_key = True)
     date = Column(Date, nullable = False)
+    userid = Column(Integer)
+    username = Column(String)
     q1 = Column(Boolean)
     q2 = Column(Boolean)
     q3 = Column(Boolean)
 
-    def __init__(self, date, q1, q2, q3):
+    def __init__(self, date, userid, username, q1, q2, q3):
         self.date = date
+        self.userid = userid
+        self.username = username
         self.q1 = q1
         self.q2 = q2
         self.s3 = q3
