@@ -1,13 +1,11 @@
 import os
-from flask import Flask
 from sqlalchemy import Column, String, Integer, create_engine, Date, Boolean
 from flask_sqlalchemy import SQLAlchemy
 import json
 
 database_name = "covid"
 database_path = "postgres://{}/{}".format('localhost:5432', database_name)
-app = Flask(__name__)
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 
 def drop_create_all():
@@ -57,3 +55,20 @@ class Qtable(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
+
+class Questions(db.Model):
+    __tablename__ = "questions"
+    id = Column(Integer, primary_key = True)
+    name = Column(String)
+
+    def __init__(self, name):
+        self.name = name
+    
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def format(self):
+        return {
+            "name" : self.name
+        }
