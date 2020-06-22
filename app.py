@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, abort, jsonify, render_template, redirect, url_for
+from flask import Flask, request, abort, jsonify, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import json
@@ -11,9 +11,7 @@ import bcrypt
 app = Flask(__name__)
 setup_db(app)
 CORS(app)
-questions = ["Are you experiencing any flu symptoms-like cold, cough?",
-"Are you experiencing any of these conditions: Stomach upset, vomiting, fatigue?",
-"Are you suffering from shortness of breath or other respiratory problems?"]
+app.config.from_object('config')
 
 
 @app.route('/')
@@ -35,8 +33,8 @@ def login():
     if bcrypt.checkpw(passkey, user_found.hash_key.encode('utf-8')) :
         return redirect(url_for('questionnaire', name = username, user_id = user_found.id))
     else:
-        print("false password")
-        return "Enter correct Password"
+       flash("Enter correct Password")
+    return redirect(url_for('index'))
     
 
 @app.route('/questionnaire')
@@ -56,5 +54,5 @@ def add_question():
 @app.route('/questionnaire_submit', methods = ["POST"])
 def store_questionnaire():
     print(request.form)
-    return "Submitted"
+    return "Form successfully submitted"
 
