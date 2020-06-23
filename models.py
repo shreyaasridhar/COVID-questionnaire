@@ -43,6 +43,9 @@ class User(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def update(self):
+        db.session.commit()
+
 
 class Qtable(db.Model):
     __tablename__ = "qtable"

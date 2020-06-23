@@ -36,7 +36,25 @@ def login():
     else:
        flash("Enter correct Password")
     return redirect(url_for('index'))
-    
+
+@app.route("/forgot")
+def forgot():
+    return render_template("reset.html")
+
+@app.route('/reset', methods = ['POST'])
+def reset_password():
+    passkey = bytes(request.form['password'],'utf-8')
+    username = request.form['username']
+    user_found = User.query.filter(User.name == username).one_or_none()
+    if user_found == None:
+        flash("Invalid user")
+        return redirect(url_for('index'))
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(passkey, salt)
+    user_found.salt = salt
+    user_found.hash_key = hashed.decode('utf-8')
+    user_found.update()
+    return redirect(url_for('questionnaire', name = username, user_id = user_found.id))
 
 @app.route('/questionnaire')
 def questionnaire():
