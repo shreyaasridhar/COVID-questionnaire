@@ -9,7 +9,39 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<br><br>
 {% if filtered != None %}
-{{filtered}}
+<div class="row">
+    <h5>Date:</h5> 
+    &nbsp;&nbsp;
+    {{filtered["date"]}}
+</div>
+<br>
+{% if filtered["users"] == [] %}
+<h5>No records found</h5>
+{% endif %}
+{% if filtered["users"] != [] %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Answers</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+
+{%for i in filtered["users"]%}
+<tr>
+    <th scope="row">{{i["Userid"]}}</th>
+    <td>{{i["Username"]}}</td>
+    <td>{{i["questions"]}}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
 {% endif %}
 {% endblock %}

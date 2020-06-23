@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <style>
-        body{
-            padding: 25px;
-        }
+      body{
+          padding: 15px;
+      }
       .req:after {
           content:" *";
           color: red;
@@ -22,14 +22,13 @@
     <title>Questionnaire</title>
 </head>
 <body>
-  <div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/"><i class="material-icons">home</i></a>
-      </div>
-        
-    </div>
-  </div>
+  <nav class="navbar navbar-expand-md navbar-light">
+    <a class="navbar-brand" href="/">COVID  Questionnaire</a>
+      <ul class="navbar-nav mr-auto">
+      </ul>
+      <a class="mr-4" href="{{ url_for('index') }}"><i class="material-icons">home</i></a>
+      <a class="mr-4" href="{{ url_for('filter_date') }}"><i class="material-icons">settings</i></a>
+  </nav>
 <main id="content" role="main" class="container">
 
   {% with messages = get_flashed_messages() %}
