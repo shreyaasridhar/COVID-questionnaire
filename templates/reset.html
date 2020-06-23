@@ -5,12 +5,12 @@
         <h2>Reset Password</h2>
         <form method = "post" action="{{url_for('reset_password')}}">
             <div class="form-group">
-                <label for="Username">Username</label>
-                <input type="text" class="form-control" name="username" placeholder="Username">
+                <label for="Username" class="req">Username</label>
+                <input type="text" class="form-control" name="username" placeholder="Username" required>
             </div>
             <div class="form-group">
-                <label for="Password">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password">
+                <label for="Password" class="req">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
             
             <button type="submit" class="btn btn-primary">Submit</button>

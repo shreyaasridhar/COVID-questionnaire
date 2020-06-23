@@ -1,11 +1,5 @@
 {% extends 'main.html' %}
 {% block content %}
-<style>
-    .req:after {
-        content:" *";
-        color: red;
-    } 
-</style>
 <form method = "post" action="{{url_for('store_questionnaire')}}">
     <h2> COVID Questionnaire</h2>
     <div class="row"><h5 class="col-lg-1 col-sm-2" name="username">Patient: </h5><p>{{name}}</p></div>

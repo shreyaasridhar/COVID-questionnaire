@@ -3,8 +3,12 @@
 <head>
     <style>
         body{
-            padding: 35px;
+            padding: 25px;
         }
+      .req:after {
+          content:" *";
+          color: red;
+      } 
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +20,14 @@
     <title>Questionnaire</title>
 </head>
 <body>
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">HOME</a>
+      </div>
+        
+    </div>
+  </div>
 <main id="content" role="main" class="container">
 
   {% with messages = get_flashed_messages() %}

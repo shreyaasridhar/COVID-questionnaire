@@ -78,5 +78,8 @@ def store_questionnaire():
     print(len(data) - 3)
     entry = Qtable(data['today'], data["user_id"], data['username'], [data[str(i)] == '1' for i in range(1, len(data)-2)])
     entry.insert()
-    return "Form successfully submitted"
+    flash("Form successfully submitted")
+    return redirect(url_for('questionnaire', name = data['username'], user_id = data["user_id"]))
+
+
 
