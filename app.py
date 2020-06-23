@@ -83,6 +83,8 @@ def store_questionnaire():
     flash("Form successfully submitted")
     return redirect(url_for('questionnaire', name = data['username'], user_id = data["user_id"]))
 
+
+
 @app.route('/users_today')
 def today():
     now = datetime.now().strftime('%Y-%m-%d')
@@ -93,4 +95,17 @@ def today():
         "today": [t.format() for t in today],
         "total_entries": len(today)
     })
+@app.route('/filterby_date')
+def filter_date():
+    return render_template("filter.html", filtered=None)
+
+@app.route('/users_on', methods = ["POST"])
+def user_by_date():
+    date_req = request.form['date']
+    today = Qtable.query.filter(Qtable.date == date_req).all()
+    return render_template("filter.html", filtered={
+        "today": [t.format() for t in today],
+        "total_entries": len(today)
+    })
+
 
