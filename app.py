@@ -13,6 +13,7 @@ setup_db(app)
 CORS(app)
 app.config.from_object('config')
 
+# drop_create_all()
 
 @app.route('/')
 def index():
@@ -53,6 +54,11 @@ def add_question():
 
 @app.route('/questionnaire_submit', methods = ["POST"])
 def store_questionnaire():
-    print(request.form)
+    data = request.form
+    print(data)
+    print(data['today'], data["user_id"], data['username'], data[str(1)], data['2'], data['3'])
+    print(len(data) - 3)
+    entry = Qtable(data['today'], data["user_id"], data['username'], [data[str(i)] == '1' for i in range(1, len(data)-2)])
+    entry.insert()
     return "Form successfully submitted"
 

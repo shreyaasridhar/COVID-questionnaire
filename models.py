@@ -6,11 +6,18 @@ import json
 database_name = "covid"
 database_path = "postgres://{}/{}".format('localhost:5432', database_name)
 db = SQLAlchemy()
+questions = ["Are you experiencing any flu symptoms-like cold, cough?",
+"Are you experiencing any of these conditions: Stomach upset, vomiting, fatigue?",
+"Are you suffering from shortness of breath or other respiratory problems?"]
 
 
 def drop_create_all():
     db.drop_all()
     db.create_all()
+
+    for i in questions:
+        question = Questions(i)
+        question.insert()
 
 
 def setup_db(app, database_path=database_path):
@@ -37,24 +44,19 @@ class User(db.Model):
         db.session.commit()
 
 
-
 class Qtable(db.Model):
     __tablename__ = "qtable"
     id = Column(Integer, primary_key = True)
     date = Column(Date, nullable = False)
     userid = Column(Integer)
     username = Column(String)
-    q1 = Column(Boolean)
-    q2 = Column(Boolean)
-    q3 = Column(Boolean)
+    questions = Column(db.ARRAY(String))
 
-    def __init__(self, date, userid, username, q1, q2, q3):
+    def __init__(self, date, userid, username, questions):
         self.date = date
         self.userid = userid
         self.username = username
-        self.q1 = q1
-        self.q2 = q2
-        self.s3 = q3
+        self.questions = questions
     
     def insert(self):
         db.session.add(self)
