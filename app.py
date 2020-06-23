@@ -102,10 +102,10 @@ def filter_date():
 @app.route('/users_on', methods = ["POST"])
 def user_by_date():
     date_req = request.form['date']
-    today = Qtable.query.filter(Qtable.date == date_req).all()
+    dated = Qtable.query.filter(Qtable.date == date_req).all()
     return render_template("filter.html", filtered={
-        "today": [t.format() for t in today],
-        "total_entries": len(today)
+        "date": [t.format() for t in dated],
+        "total_entries": len(dated)
     })
 
 
