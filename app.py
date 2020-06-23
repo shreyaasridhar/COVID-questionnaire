@@ -1,8 +1,10 @@
 import os
 from flask import Flask, request, abort, jsonify, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import SQLAlchemyError
 from flask_cors import CORS
 import json
+from datetime import datetime
 from flask_migrate import Migrate
 from models import setup_db, User, Qtable, Questions, drop_create_all
 import bcrypt
@@ -81,5 +83,14 @@ def store_questionnaire():
     flash("Form successfully submitted")
     return redirect(url_for('questionnaire', name = data['username'], user_id = data["user_id"]))
 
-
+@app.route('/users_today')
+def today():
+    now = datetime.now().strftime('%Y-%m-%d')
+    print(now)
+    today = Qtable.query.filter(Qtable.date == now).all()
+    return jsonify({
+        "success":True,
+        "today": [t.format() for t in today],
+        "total_entries": len(today)
+    })
 

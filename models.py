@@ -65,6 +65,14 @@ class Qtable(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def format(self):
+        return {
+            "Username":self.username,
+            "Userid":self.userid,
+            "questions":self.questions
+        }
+
+
 class Questions(db.Model):
     __tablename__ = "questions"
     id = Column(Integer, primary_key = True)
