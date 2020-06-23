@@ -95,16 +95,18 @@ def today():
         "today": [t.format() for t in today],
         "total_entries": len(today)
     })
-@app.route('/filterby_date')
+
+@app.route('/date-filter')
 def filter_date():
     return render_template("filter.html", filtered=None)
 
-@app.route('/users_on', methods = ["POST"])
+@app.route('/users-by-date', methods = ["POST"])
 def user_by_date():
     date_req = request.form['date']
     dated = Qtable.query.filter(Qtable.date == date_req).all()
     return render_template("filter.html", filtered={
-        "date": [t.format() for t in dated],
+        "date": date_req,
+        "users": [t.format() for t in dated],
         "total_entries": len(dated)
     })
 
