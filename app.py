@@ -8,7 +8,6 @@ from datetime import datetime
 from flask_migrate import Migrate
 from models import setup_db, User, Qtable, Questions, drop_create_all
 import bcrypt
-SECRET_KEY = os.urandom(32)
 
 def create_app():
     app = Flask(__name__)
@@ -16,7 +15,7 @@ def create_app():
     CORS(app)
     app.config.from_object('config')
 
-    # drop_create_all()
+    drop_create_all()
 
     @app.route('/')
     def index():
@@ -63,8 +62,9 @@ def create_app():
     def questionnaire():
         name = request.args['name']
         user_id = request.args['user_id']
+        success = request.args['success'] if 'success' in request.args else None
         db_questions = Questions.query.all()
-        return render_template("survey.html", questions = [q.format()["name"] for q in db_questions], name = name, user_id = user_id)
+        return render_template("survey.html", questions = [q.format()["name"] for q in db_questions], name = name, user_id = user_id, success=success)
 
     @app.route('/questionnaire', methods = ["POST"])
     def add_question():
@@ -76,13 +76,9 @@ def create_app():
     @app.route('/questionnaire_submit', methods = ["POST"])
     def store_questionnaire():
         data = request.form
-        print(data)
-        print(data['today'], data["user_id"], data['username'], data[str(1)], data['2'], data['3'])
-        print(len(data) - 3)
         entry = Qtable(data['today'], data["user_id"], data['username'], [data[str(i)] == '1' for i in range(1, len(data)-2)])
         entry.insert()
-        flash("Form successfully submitted")
-        return redirect(url_for('questionnaire', name = data['username'], user_id = data["user_id"]))
+        return redirect(url_for('questionnaire', name = data['username'], user_id = data["user_id"], success=True))
 
 
 

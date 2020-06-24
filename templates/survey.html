@@ -1,5 +1,12 @@
 {% extends 'main.html' %}
 {% block content %}
+{% if success %}
+<div class="alert alert-block alert-info">
+    <a class="close" data-dismiss="alert">&times;</a>
+    Form successfully submitted
+</div>
+{% endif %}
+
 <form method = "post" action="{{url_for('store_questionnaire')}}">
     <h2> COVID Questionnaire</h2>
     <div class="row"><h5 class="col-lg-1 col-sm-2" name="username">Patient: </h5><p>{{name}}</p></div>
