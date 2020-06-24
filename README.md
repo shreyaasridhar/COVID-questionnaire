@@ -29,11 +29,13 @@ Bonus points:
 
 ### Database
 
-1.	User info table: Username, password, user id generation (sequential store in postgres)
+1. User info table: Username, password, user id generation (sequential store in postgres)
 
-2.	Questionnaire table: Current date, q1, q2, q3, user_id
+2. Questionnaire table: Current date, username, user_id, array of answers
 
-If multiple entries for different users, have a different id for each questionnaire submission. the table and set the user_id as a foreign key in the database. Else it can be the primary key of the database.
+3. Questions table
+
+If multiple entries for different users, have a different id for each questionnaire submission. 
 
 ### Backend
 Flask 
