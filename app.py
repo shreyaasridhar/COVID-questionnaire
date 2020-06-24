@@ -109,6 +109,7 @@ def create_app():
             "users": [t.format() for t in dated],
             "total_entries": len(dated)
         })
+    return app
 
 app = create_app()
 
