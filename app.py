@@ -8,14 +8,12 @@ from datetime import datetime
 from flask_migrate import Migrate
 from models import setup_db, User, Qtable, Questions, drop_create_all
 import bcrypt
+SECRET_KEY = os.urandom(32)
 
 def create_app():
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
-    db = SQLAlchemy(app)
-    Migrate(app,db)
-    app.config.from_object('config')
 
     # drop_create_all()
 
