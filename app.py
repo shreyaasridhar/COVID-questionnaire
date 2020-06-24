@@ -15,7 +15,7 @@ def create_app():
     CORS(app)
     app.config.from_object('config')
 
-    drop_create_all()
+    # drop_create_all()
 
     @app.route('/')
     def index():
