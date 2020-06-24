@@ -14,6 +14,7 @@ def create_app():
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
+    app.config.from_object('config')
 
     # drop_create_all()
 
