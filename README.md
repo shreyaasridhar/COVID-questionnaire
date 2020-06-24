@@ -177,7 +177,9 @@ Vibrant Sciences interview :)
 Great amounts of Patience with deployment! :p
 
 ### QUERY:
-SELECT * FROM USER WHERE USERNAME==VAL1 AND PASSWORD == VAL2
+SQL query to select password and retrive current information. 
 
-SELECT * FROM QTABLE WHERE where DATE_FORMAT(Current_date, '%d/%m/%y %T') <= now();
+`SELECT * FROM USER WHERE USERNAME==VAL1 AND PASSWORD == VAL2`
+
+`SELECT * FROM QTABLE WHERE where DATE_FORMAT(Current_date, '%d/%m/%y %T') <= now();`
 
