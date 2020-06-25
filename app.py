@@ -14,8 +14,9 @@ def create_app():
     setup_db(app)
     CORS(app)
     app.config.from_object('config')
-
-    # drop_create_all()
+    
+    if reset_db == True:
+        drop_create_all()
 
     @app.route('/')
     def index():
@@ -23,21 +24,25 @@ def create_app():
 
     @app.route('/login', methods = ['POST'])
     def login():
-        passkey = bytes(request.form['password'],'utf-8')
-        username = request.form['username']
-        user_found = User.query.filter(User.name == username).one_or_none()
+        try:
+            passkey = bytes(request.form['password'],'utf-8')
+            username = request.form['username']
+            user_found = User.query.filter(User.name == username).one_or_none()
 
-        if user_found == None:
-            salt = bcrypt.gensalt()
-            hashed = bcrypt.hashpw(passkey, salt)
-            new_user = User(hashed.decode('utf-8'), username, salt)
-            new_user.insert()
-            return redirect(url_for('questionnaire', name = username, user_id = new_user.id))
-        if bcrypt.checkpw(passkey, user_found.hash_key.encode('utf-8')) :
-            return redirect(url_for('questionnaire', name = username, user_id = user_found.id))
-        else:
-           flash('Enter correct Password')
-        return redirect(url_for('index'))
+            if user_found == None:
+                salt = bcrypt.gensalt()
+                hashed = bcrypt.hashpw(passkey, salt)
+                new_user = User(hashed.decode('utf-8'), username, salt)
+                new_user.insert()
+                return redirect(url_for('questionnaire', name = username, user_id = new_user.id))
+            if bcrypt.checkpw(passkey, user_found.hash_key.encode('utf-8')) :
+                return redirect(url_for('questionnaire', name = username, user_id = user_found.id))
+            else:
+               flash('Enter correct Password')
+            return redirect(url_for('index'))
+        except SQLAlchemyError as e:
+            print(request.form) # can be saved to a file or a backup database
+            # flash('User could not be created!')
 
     @app.route("/forgot")
     def forgot():
@@ -79,8 +84,6 @@ def create_app():
         entry = Qtable(data['today'], data['user_id'], data['username'], [data[str(i)] == '1' for i in range(1, len(data)-2)])
         entry.insert()
         return redirect(url_for('questionnaire', name = data['username'], user_id = data['user_id'], success=True))
-
-
 
     @app.route('/users_today')
     def today():
