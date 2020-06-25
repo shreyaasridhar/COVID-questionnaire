@@ -11,7 +11,6 @@ questions = ["Are you experiencing any flu symptoms-like cold, cough?",
 "Are you experiencing any of these conditions: Stomach upset, vomiting, fatigue?",
 "Are you suffering from shortness of breath or other respiratory problems?"]
 
-
 def drop_create_all():
     db.drop_all()
     db.create_all()
@@ -19,7 +18,6 @@ def drop_create_all():
     for i in questions:
         question = Questions(i)
         question.insert()
-
 
 def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
@@ -47,7 +45,6 @@ class User(db.Model):
     def update(self):
         db.session.commit()
 
-
 class Qtable(db.Model):
     __tablename__ = "qtable"
     id = Column(Integer, primary_key = True)
@@ -72,7 +69,6 @@ class Qtable(db.Model):
             "Userid":self.userid,
             "questions":self.questions
         }
-
 
 class Questions(db.Model):
     __tablename__ = "questions"
