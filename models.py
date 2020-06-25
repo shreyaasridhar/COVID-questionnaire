@@ -15,8 +15,8 @@ def drop_create_all():
     db.drop_all()
     db.create_all()
 
-    for Q in questions:
-        question = Questions(Q)
+    for q in questions:
+        question = Questions(q)
         question.insert()
 
 def setup_db(app, database_path=database_path):
