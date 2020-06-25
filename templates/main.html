@@ -22,28 +22,28 @@
     <title>Questionnaire</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-md navbar-light">
+    <nav class="navbar navbar-expand-md navbar-light">
     <h2><a class="navbar-brand" href="/">COVID  Questionnaire</a></h2>
       <ul class="navbar-nav mr-auto">
       </ul>
       <a class="mr-4" href="{{ url_for('index') }}"><i class="material-icons">home</i></a>
       <a class="mr-4" href="{{ url_for('filter_date') }}"><i class="material-icons">settings</i></a>
-  </nav>
-<main id="content" role="main" class="container">
+    </nav>
+    <main id="content" role="main" class="container">
 
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-block alert-info">
-          <a class="close" data-dismiss="alert">&times;</a>
-          {{ message }}
-        </div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-block alert-info">
+              <a class="close" data-dismiss="alert">&times;</a>
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
 
-  {% block content %}{% endblock %}
-  
-</main>
+      {% block content %}{% endblock %}
+
+    </main>
 </body>
 </html>
