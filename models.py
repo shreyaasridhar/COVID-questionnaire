@@ -3,13 +3,15 @@ from sqlalchemy import Column, String, Integer, create_engine, Date, Boolean
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_name = "covid"
+# database_name = "covid"
 # database_path = "postgres://{}/{}".format('localhost:5432', database_name)
 database_path = "postgres://dkluuncfcsvasb:d7b7c37214917c1895b06adf3e73f2f57575f1935b105e3390d4744c5190392a@ec2-52-0-155-79.compute-1.amazonaws.com:5432/ddn59k3b73e2f8"
 db = SQLAlchemy()
-questions = ["Are you experiencing any flu symptoms-like cold, cough?",
-"Are you experiencing any of these conditions: Stomach upset, vomiting, fatigue?",
-"Are you suffering from shortness of breath or other respiratory problems?"]
+questions = [
+    "Are you experiencing any flu symptoms-like cold, cough?",
+    "Are you experiencing any of these conditions: Stomach upset, vomiting, fatigue?",
+    "Are you suffering from shortness of breath or other respiratory problems?"
+]
 
 def drop_create_all():
     db.drop_all()
